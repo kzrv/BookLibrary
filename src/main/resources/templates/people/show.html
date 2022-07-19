@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show the person</title>
+</head>
+<body>
+
+<div>
+    <p th:text="${person.getName() + ', '+ person.getYear()}"></p>
+    <p th:unless="${list}">Person didn't take any book</p>
+    <div th:if="${list}" >
+        <hr>
+        <b>Books:</b>
+        <br>
+        <table th:each="book : ${list}">
+            <tr>
+                <td>
+            <span th:unless="${book.isEnd()}" style="color:blue" th:text="${book.getName() + ', '+ book.getAuthor() + ', '+ book.getYear()}"></span>
+            <span th:if="${book.isEnd()}" style="color:red" th:text="${book.getName() + ', '+ book.getAuthor() + ', '+ book.getYear()}"></span>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <hr>
+    <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+        <input type="submit" value="EDIT">
+    </form>
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+        <input type="submit" value="DELETE">
+    </form>
+
+</div>
+
+</body>
+</html>
